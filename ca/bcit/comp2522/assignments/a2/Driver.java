@@ -20,12 +20,11 @@ public final class Driver {
   public static void main(final String[] args) {
 
     final Ecosystem ecosystem = new Ecosystem();
-    final Scanner scan = new Scanner(System.in);
 
-    //System.out.println("How many weeks would you like to simulate for?");
+    System.out.println("How many weeks would you like to simulate for?");
+    final Scanner scan = new Scanner(System.in);
     final int weeks = scan.nextInt();
 
-    ecosystem.setupSimulation();
     ecosystem.simulate(weeks);
     scan.close();
 
