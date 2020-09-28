@@ -1,10 +1,6 @@
 package ca.bcit.comp2522.assignments.a2;
 
-import java.util.Random;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.Arrays;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * creates a Pool object for guppies in Guppy.
@@ -629,21 +625,29 @@ public class Pool {
   /**
    * spawns new guppies born to pool.
    *
-   * @return babyGuppies
+   * @return addedBabies
    */
   public int spawn() {
 
-    int babyGuppies = 0;
-    Iterator<Guppy> guppies = guppiesInPool.iterator();
-    while (guppies.hasNext()) {
+    int addedBabies = 0;
+    final ArrayList<Guppy> newBabiesArrayList = new ArrayList<>();
 
-      Guppy guppy = new Guppy();
-      babyGuppies += guppy.spawn().size();
-      guppiesInPool.addAll(guppy.spawn());
+    for (final Guppy currentGuppy : guppiesInPool) {
+
+      final ArrayList<Guppy> newBabies = currentGuppy.spawn();
+
+      if (newBabies != null) {
+
+        newBabiesArrayList.addAll(newBabies);
+
+      }
 
     }
 
-    return babyGuppies;
+    addedBabies += newBabiesArrayList.size();
+    guppiesInPool.addAll(newBabiesArrayList);
+
+    return addedBabies;
 
   }
 
@@ -680,6 +684,7 @@ public class Pool {
    */
   public int adjustForCrowding() {
 
+    guppiesInPool.sort(Comparator.comparingDouble(Guppy::getHealthCoefficient));
     int crowded = 0;
     final Iterator<Guppy> guppies = guppiesInPool.iterator();
     double volumeNeeded = this.getGuppyVolumeRequirementInLitres();

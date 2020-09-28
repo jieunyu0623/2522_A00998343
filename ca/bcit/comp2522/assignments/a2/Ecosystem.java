@@ -187,8 +187,18 @@ public class Ecosystem {
       newFry += pool.spawn();
       crowdedOut += pool.adjustForCrowding();
       numberRemoved += pool.removeDeadGuppies();
-      poolNames.add(pool.getName());
-      poolPopulations.add(pool.getPopulation());
+
+      if (!poolNames.contains(pool.getName())) {
+
+        poolNames.add(pool.getName());
+
+      }
+
+      if (!poolPopulations.contains(pool.getPopulation())) {
+
+        poolPopulations.add(pool.getPopulation());
+
+      }
 
     }
 
