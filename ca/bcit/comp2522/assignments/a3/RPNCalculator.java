@@ -19,7 +19,8 @@ public class RPNCalculator {
    * constructs an RPN object with stack size passed.
    * @param stackSize the size of the stack.
    */
-  public RPNCalculator(final int stackSize) {
+  public RPNCalculator(final int stackSize)
+          throws IllegalArgumentException {
     if (stackSize < MIN_STACK_SIZE) {
       throw new IllegalArgumentException("stack size must be bigger than 2!");
     }
@@ -36,9 +37,14 @@ public class RPNCalculator {
    * @throws StackUnderflowException StackUnderflowException
    */
   public int processFormula(final String formula) throws StackOverflowException,
-          InvalidOperationTypeException, StackUnderflowException {
-    if (formula.isEmpty() || formula.isBlank()) {
-      throw new IllegalArgumentException("Formula cannot be empty!");
+          InvalidOperationTypeException,
+          StackUnderflowException {
+    String empty = "";
+    if (formula == null) {
+      throw new IllegalArgumentException("Formula cannot be null!");
+    }
+    if (formula.isEmpty() || formula.isBlank() || formula.equals(empty)) {
+      throw new StackUnderflowException("Formula cannot be empty!");
     }
     Scanner scan = new Scanner(formula);
 
@@ -79,9 +85,16 @@ public class RPNCalculator {
     };
   }
 
-  private void perform(final Operation operation)
+  /**
+   * performs performs specific operation with two operands.
+   * @param operation Operation
+   * @throws StackUnderflowException StackUnderflowException
+   * @throws StackOverflowException StackOverflowException
+   * @throws IllegalArgumentException IllegalArgumentException
+   */
+  public void perform(final Operation operation)
           throws StackUnderflowException,
-          StackOverflowException {
+          StackOverflowException, IllegalArgumentException {
     if (operation == null) {
       throw new IllegalArgumentException("Operation cannot be null!");
     }
