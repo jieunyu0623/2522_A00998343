@@ -63,8 +63,6 @@ public class Driver {
               s1.getxCoordinate(), s1.getyCoordinate(),
               s1.getHealth(), 5);
 
-      DataOutputStream out2 = null;
-
       //Get the current time using date time formatter
       DateTimeFormatter dtf = DateTimeFormatter.ofPattern(
               "yyyy-MM-dd-HH:mm:ss");
@@ -73,7 +71,7 @@ public class Driver {
 
       //write the data from resource into newly created file
       //with current date and time as the file name.
-      out2 = new DataOutputStream(new BufferedOutputStream(new
+      DataOutputStream out2 = new DataOutputStream(new BufferedOutputStream(new
               FileOutputStream(filename)));
       out2.writeUTF(resource.getLevelName());
       out2.writeInt(resource.getLevel());
@@ -85,8 +83,7 @@ public class Driver {
 
       //read the newly created file (with current time as the title)
       //and write the data out to the console.
-      DataInputStream in2 = null;
-      in2 = new DataInputStream(new
+      DataInputStream in2 = new DataInputStream(new
               BufferedInputStream(new FileInputStream(filename)));
       String levelName = in2.readUTF();
       int level = in2.readInt();
